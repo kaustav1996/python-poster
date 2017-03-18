@@ -58,19 +58,19 @@ class _StreamingHTTPMixin:
         # NOTE: we DO propagate the error, though, because we cannot simply
         #       ignore the error... the caller will know if they can retry.
         if self.debuglevel > 0:
-            print "send:", repr(value)
+            print ("send:", repr(value))
         try:
             blocksize = 8192
             if hasattr(value, 'read') :
                 if self.debuglevel > 0:
-                    print "sendIng a read()able"
+                    print ("sendIng a read()able")
                 data = value.read(blocksize)
                 while data:
                     self.sock.sendall(data)
                     data = value.read(blocksize)
             elif hasattr(value, 'next'):
                 if self.debuglevel > 0:
-                    print "sendIng an iterable"
+                    print( "sendIng an iterable")
                 for data in value:
                     self.sock.sendall(data)
             else:
